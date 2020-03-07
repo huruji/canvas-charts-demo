@@ -20,7 +20,7 @@ class PieChart extends Chart {
     const total = this.data.reduce((acc, d) => {
       return acc + d.value;
     }, 0);
-    const radius = Math.floor(Math.min(this.canvas.height / 3, this.canvas.width / 3));
+    const radius = Math.floor(Math.min(this.canvas.height / 4, this.canvas.width / 4));
     this.total = total;
     this.radius = radius;
   }
@@ -48,8 +48,36 @@ class PieChart extends Chart {
       let item = this.data[i];
       const endAngle = (Math.PI * 2 * item.value / this.total) + startAngle;
       this.drawSlicePie(this.ctx, this.centerX, this.centerY, this.radius, startAngle, endAngle, item.color);
+      const centerAngle = startAngle + (endAngle - startAngle) / 2
+      const text = item.name + ' ' + Math.round(item.value / this.total * 1000) / 10 + '%'
+      this.drawOuterDes(centerAngle, text, item.color);
       startAngle = endAngle;
     }
+  }
+
+  drawOuterDes(angle:number, name: string, color: string) {
+    this.ctx.save()
+    this.ctx.translate(this.canvas.width / 2, this.canvas.height/2)
+    const r = this.radius + 20;
+    const x = r * Math.cos(angle)
+    const y = r * Math.sin(angle)
+    this.ctx.strokeStyle = color;
+    this.ctx.lineWidth = 2
+    this.ctx.beginPath()
+    this.ctx.moveTo(0, 0)
+    this.ctx.lineTo(x, y)
+    this.ctx.font = "20px serif";
+    const { width } = this.ctx.measureText(name)
+    if (angle > (Math.PI / 2) && angle < (Math.PI / 2 * 3)) {
+      console.log('9999')
+      this.ctx.lineTo(x -30, y)
+      this.ctx.fillText(name, x - 40 - width, y + 10)
+    } else {
+      this.ctx.lineTo(x + 30, y)
+      this.ctx.fillText(name, x + 40, y + 10)
+    }
+    this.ctx.stroke()
+    this.ctx.restore()
   }
 
   hideInfo() {
@@ -112,11 +140,15 @@ class PieChart extends Chart {
         let item = this.data[i];
         const endAngle = (Math.PI * 2 * item.value / this.total) + startAngle;
         this.drawSlicePie(this.ctx, this.centerX, this.centerY, this.radius, startAngle, endAngle, item.color);
+        const centerAngle = startAngle + (endAngle - startAngle) / 2
+        const text = item.name + ' ' + Math.round(item.value / this.total * 1000) / 10 + '%'
         if (this.ctx.isPointInPath(pos.x * 2, pos.y * 2)) {
-          // 选中的 item radius 加上 20
+          this.drawOuterDes(centerAngle, text, item.color);
           this.drawSlicePie(this.ctx, this.centerX, this.centerY, this.radius + 20, startAngle, endAngle, item.color);
           this.showInfo(pos.x, pos.y, item.name, item.value);
         } else {
+          this.drawOuterDes(centerAngle, text, item.color);
+          console.log('false')
           this.drawSlicePie(this.ctx, this.centerX, this.centerY, this.radius, startAngle, endAngle, item.color);
         }
         startAngle = endAngle;
