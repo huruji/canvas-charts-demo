@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>canvas basic fn</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+    <style>
+      #container {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .content {
+        width: 200px;
+        height: 100px
+      }
+      .can {
+        width: 200px;
+        height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <section id="container">
+      <section class="content">
+        <canvas id="line" class="can"></canvas>
+      </section>
+      <section class="content">
+        <canvas id="rect" class="can"></canvas>
+      </section>
+      <section class="content">
+        <canvas id="circle" class="can"></canvas>
+      </section>
+      <section class="content">
+        <canvas id="arc" class="can"></canvas>
+      </section>
+      <section class="content">
+        <canvas id="ellipse" class="can"></canvas>
+      </section>
+      <section class="content">
+        <canvas id="circle-stroke" class="can"></canvas>
+      </section>
+      <section class="content">
+        <canvas id="arc-stroke" class="can"></canvas>
+      </section>
+      <section class="content">
+        <canvas id="text" class="can"></canvas>
+      </section>
+    </section>
+    <script src="./src/inde.tsx"></script>
+  </body>
+</html>

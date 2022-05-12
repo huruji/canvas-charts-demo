@@ -6,6 +6,7 @@ class Chart {
   centerX: number
   centerY: number
   tip: HTMLElement
+  cur: number
   constructor(container:HTMLElement) {
     this.container = container;
     this.canvas = document.createElement('canvas')
@@ -17,6 +18,7 @@ class Chart {
     this.centerX = this.canvas.width / 2
     this.centerY = this.canvas.height / 2
     this.tip = document.createElement('div')
+    this.cur = 0;
     this.tip.style.cssText = `
       position: absolute;
       display: none;
